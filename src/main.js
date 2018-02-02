@@ -1,15 +1,12 @@
-// bootstraping
+// Bootstraping
+// Put react app in browser
 
-import React from "react";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import {render} from "react-dom";
+import {App} from './app/App';
 
-import {App} from "./app/App";
-
-//bind virtual dom to real dom
-
-//render => diffing, patching real dom
-
-render( <App />, //virtual dom
-        document.getElementById("root") //real dom
-)
+// Real DOM, Virtual DOM both come here
+ReactDOM.render(React.createElement(App), // Virtual DOM
+                document.getElementById('root') // Real DOM
+);
