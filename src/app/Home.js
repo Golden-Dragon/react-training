@@ -17,13 +17,22 @@ export default class Home extends React.Component {
 
     increment(e) {
 
-        // BAD
-        this.state.counter++;
-        console.log("Counter: ", this.state.counter);
+        // BAD, as it is mutable state (Not recommended)
+        //this.state.counter++;
+        console.log("Before Counter: ", this.state.counter);
 
         // Force Update, Trigger React to Call render
         // BAD
-        this.forceUpdate();
+        // this.forceUpdate();
+
+        // BEST PRACTICE
+        // Call Render
+        // Async Call, hence old value is visible in the After Counter as shown below
+        this.setState({
+            counter: this.state.counter + 1
+        });
+
+        console.log("After Counter: ", this.state.counter);
     }
 
     render() {
