@@ -60,9 +60,9 @@ var config = {
   //the config entry given here can be imported into any file using
   //import config from config; 
   //the imported config contains all the development.json content
-  // externals: {
-  //   config: JSON.stringify(require(path.join(__dirname,  "development.json")))
-  // },
+  externals: {
+    config: JSON.stringify(require(path.join(__dirname,  "development.json")))
+  },
  
   
   //debug, es6 to es5 mapping
@@ -87,14 +87,14 @@ var config = {
   // }),
 
     
-  //   new webpack.optimize.CommonsChunkPlugin({
-  //     name: 'vendor',
-  //     filename: 'vendor.bundle.js',
-  //     minChunks:  function(module, count) {
-  //         var context = module.context;
-  //         return context && context.indexOf('node_modules') >= 0;
-  //     },
-  // }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor.bundle.js',
+      minChunks:  function(module, count) {
+         var context = module.context;
+          return context && context.indexOf('node_modules') >= 0;
+      },
+    }),
 
 
   //insert link and script tags inside index.html output file 

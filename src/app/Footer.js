@@ -1,17 +1,26 @@
 import React from 'react';
 
-// Props are passed as params
+// props passed as params
 export default function Footer(props) {
-    /* let year = 2018;
-    let company = "ANZ"; */
+    //let year = 2017;
+    //let company = 'React App';
+ 
+    // NOT Possible
+    // props.year = 3000;
 
-    // Deconstruct
+    // deconstruct
     let {year, company} = props;
 
-        return (
-            <div>
-                <hr />
-                <p>Copyrights@ {year}, {company} </p>
-            </div>
-        );
+ 
+    return (
+    <div>
+        <hr />
+        <p>Copyrights@ {year}, {company} </p>
+   
+        <p>pincode {props.address.pincode}</p>
+        
+        {props.children}
+
+    </div>
+    )
 }

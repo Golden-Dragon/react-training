@@ -11,7 +11,10 @@ export default class Home extends React.Component {
         // state is a keyword.
         // Initializable and mutable
         this.state = {
-            counter: 100
+            counter: 100,
+            name: 'Enter name',
+            frameworks: ['React','Redux'],
+            show: true
         }
     }
 
@@ -35,6 +38,32 @@ export default class Home extends React.Component {
         console.log("After Counter: ", this.state.counter);
     }
 
+    onNameChange(e) {
+        // Target is Real DOM element
+        let target = e.target;
+        console.log("Value is", target.value);
+        this.setState({
+            name: target.value
+        });
+    }
+
+    onAdd() {
+        //BAD: Mutable 
+        //this.state.frameworks.push(this.state.name);
+
+        //GOOD: Immutable
+        this.setState({
+            frameworks: [...this.state.frameworks, this.state.name]
+        });
+
+    }
+
+    toggle() {
+        this.setState({
+            show: !this.state.show
+        });
+    }
+
     render() {
 
         console.log("Home Render ");
@@ -43,9 +72,30 @@ export default class Home extends React.Component {
             <div>
                 <h2>Home Page</h2>
                 <p>Counter {this.state.counter}</p>
-                <button onClick={() => this.increment()}>
+                <button onClick={(e) => this.increment(e)}>
                     Click me!
                 </button>
+
+                <input value={this.state.name} onChange={(e) => this.onNameChange(e)} />
+
+                <button onClick={() => this.onAdd()}>
+                    Add
+                </button>
+
+                <button onClick={() => this.toggle()}>
+                    {this.state.show ? 'Hide' : 'Show'}
+                </button>
+
+                {   this.state.show && 
+                    <ul>
+                        {
+                            this.state.frameworks.map(name => (
+                                <li key={name}>{name}</li>
+                            ))
+                        }
+
+                    </ul>
+                }
             </div>
         );
     }
