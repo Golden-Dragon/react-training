@@ -1,102 +1,127 @@
 import React from 'react';
+import { POINT_CONVERSION_COMPRESSED } from 'constants';
+import { Z_DEFAULT_STRATEGY } from 'zlib';
 
-// Click & Keypress Events
-// state, forceUpdate and setState
+//events, click
+//keayboard
+//state, forceUpdate, setState
 
-export default class Home extends React.Component {
 
-    constructor() {
-        super(); // Must
+export default class Home extends React.Component{
 
-        // state is a keyword.
-        // Initializable and mutable
-        this.state = {
-            counter: 100,
-            name: 'Enter name',
-            frameworks: ['React','Redux'],
-            show: true
+constructor(){
+
+    super();
+//keyword
+//initiate, mutable
+    this.state={
+        counter:200,
+        name:'name enter',
+        frameworks:['React','Redux'],
+        show:true
         }
-    }
+}
+//event=> e
+increment( e){
 
-    increment(e) {
+    console.log("Event", e);
+    //alert('faunction called')
+    //Bad
+    //this.state.counter++;
+    console.log("Console", this.state.counter);
 
-        // BAD, as it is mutable state (Not recommended)
-        //this.state.counter++;
-        console.log("Before Counter: ", this.state.counter);
 
-        // Force Update, Trigger React to Call render
-        // BAD
-        // this.forceUpdate();
+    //force update, trigger react call render
+    //BAD
+    //keyword
+  //  this.forceUpdate();
 
-        // BEST PRACTICE
-        // Call Render
-        // Async Call, hence old value is visible in the After Counter as shown below
-        this.setState({
-            counter: this.state.counter + 1
-        });
+  ///Good practce
+//Async
+  this.setState(
+      {
+          counter:this.state.counter+1
+      }
+  )
 
-        console.log("After Counter: ", this.state.counter);
-    }
+  console.log(" checking getState()");
+}
 
-    onNameChange(e) {
-        // Target is Real DOM element
-        let target = e.target;
-        console.log("Value is", target.value);
-        this.setState({
+
+
+ onNameChange(e){
+//target is the real dom element , input
+let target= e.target;
+console.log('Value is', target.value);
+
+    this.setState(    {
             name: target.value
-        });
-    }
+        } )
+ }
 
-    onAdd() {
-        //BAD: Mutable 
-        //this.state.frameworks.push(this.state.name);
 
-        //GOOD: Immutable
-        this.setState({
-            frameworks: [...this.state.frameworks, this.state.name]
-        });
 
-    }
+onAdd(){
+    //BAD:Mutable
+    // this.state.frameworks.push(this.state.name)
 
-    toggle() {
-        this.setState({
-            show: !this.state.show
-        });
-    }
+    //Good:Immutuable
+    this.setState({
+        frameworks:[...this.state.frameworks, this.state.name]
+    } );
 
-    render() {
+    this.setState({
+        name:''
+    })
+}
 
-        console.log("Home Render ");
 
-        return (
-            <div>
-                <h2>Home Page</h2>
-                <p>Counter {this.state.counter}</p>
-                <button onClick={(e) => this.increment(e)}>
-                    Click me!
-                </button>
+toggle(){
+    this.setState({
+        show:!this.state.show
+    })
+}
 
-                <input value={this.state.name} onChange={(e) => this.onNameChange(e)} />
+render(){
 
-                <button onClick={() => this.onAdd()}>
+    console.log("Home Render");
+    return(
+
+    <div>
+            
+        <h2>  Home  page showing </h2>
+
+        <p> Counter {this.state.counter}</p>
+        <button onClick={ (e)=> this.increment(e)}>
+        +1
+        </button>
+
+        <br/>
+    <input value={this.state.name}
+     onChange={ (e) => this.onNameChange(e)}
+    />
+        <button onClick={() => this.onAdd() } >
                     Add
                 </button>
 
-                <button onClick={() => this.toggle()}>
-                    {this.state.show ? 'Hide' : 'Show'}
+
+                <button onClick={() => this.toggle() } >
+                    {this.state.show?"Hide":"Show"}
                 </button>
 
-                {   this.state.show && 
-                    <ul>
-                        {
-                            this.state.frameworks.map(name => (
-                                <li key={name}>{name}</li>
-                            ))
-                        }
+{this.state.show &&
+<ul>
+        {
+        this.state.frameworks.map(name=>(
+            <li key= {name}>{name} </li>
 
-                    </ul>
-                }
-            </div>
-        );
-    }
+        ))
+
+        }
+</ul>
+}
+    </div>
+    )
+}
+
 }

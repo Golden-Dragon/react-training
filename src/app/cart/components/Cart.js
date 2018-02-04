@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import CartList from "./CartList";
 import CartSummary from './CartSummary';
 
-import Button from '../../Button';
+import Button from "./Button";
 
 export default class Cart extends Component {
     constructor(props) {
@@ -28,7 +28,9 @@ export default class Cart extends Component {
             id: id,
             price: Math.ceil(Math.random() * 1000),
             name: "Product " + id,
-            qty: 1
+            qty: 1,
+
+            highlight: false
         }
 
         
@@ -41,7 +43,14 @@ export default class Cart extends Component {
     }
 
     removeItem(id) {
-            //TODO
+        //TODO
+
+        let newItems = this.state
+                    .items.filter (item => item.id != id);
+
+        this.setState({
+            items: newItems
+        });
     }
 
     empty() {
@@ -60,6 +69,7 @@ export default class Cart extends Component {
     componentDidMount() {
         console.log("Cart Did mount");
     }
+
     
     render() {
 
@@ -68,9 +78,15 @@ export default class Cart extends Component {
             <div> 
             <h2>Cart</h2>
 
-            <button onClick={() => this.addItem()}>
+            <Button   onClick={() => this.addItem()}>
                 Add Item
-            </button>
+            </Button>
+
+
+            <Button >
+                Click Me
+            </Button>
+           
 
 
             <Button onClick={() => this.empty()}>
@@ -78,12 +94,14 @@ export default class Cart extends Component {
             </Button>
 
 
-            <button onClick={() => this.refresh()}>
+            <Button onClick={() => this.refresh()}>
                 Refresh
-            </button>
-            <Button />
+            </Button>
 
-            <CartList items={this.state.items} />
+            <CartList items={this.state.items}
+                      onRemove={(id) => this.removeItem(id)}
+
+            />
 
             <CartSummary amount={this.state.amount}
                          count={this.state.count} />

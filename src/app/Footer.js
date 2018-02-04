@@ -9,7 +9,7 @@ export default function Footer(props) {
     // props.year = 3000;
 
     // deconstruct
-    let {year, company} = props;
+    let {year, company, address} = props;
 
  
     return (

@@ -12,9 +12,8 @@ export default class CartList extends Component {
     componentDidMount() {
         
     }
-
-    //update life cycle
-
+    
+//update Lifecycle
     componentWillReceiveProps(nextProps) {
         console.log("Cart List will receive");
         console.log("next List", nextProps.items.length);
@@ -22,9 +21,10 @@ export default class CartList extends Component {
      }
 
      shouldComponentUpdate(nextProps, nextState) {
-         return true;
+         console.log(" cartlist should be update");
+         return nextProps.items != this.props.items;
      }
-    
+
     render() {
         console.log("CartList render");
         return (
@@ -47,7 +47,7 @@ export default class CartList extends Component {
                         this.props.items.map( item => (
                             <CartItem item={item}
                                       key={item.id}
-                                      
+                                      onRemove={this.props.onRemove}
                                       
                             >
 
